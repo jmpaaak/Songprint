@@ -28,3 +28,16 @@
     top: 10px;
     left: 0;
 }
+
+
+body {
+    overflow: hidden;
+    margin: 0;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica;
+}
+#chart {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+}
