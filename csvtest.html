@@ -118,11 +118,24 @@ function draw(){
             // Create a data table with links.
             edges = [];
             nodes.push({id: 1, label: 'Get img1', image: 'chart_1.png', shape: 'image'});
-            nodes.push({id: 2, label: 'Get img2', image: 'chart_3.png', shape: 'image'});
+
+            nodes.push({id: 2, label: 'Get img3', image: 'chart_3.png', shape: 'image'});
+
+            nodes.push({id: 3, label: 'Get img4', image: 'chart_4.png', shape: 'image'});
+
+            nodes.push({id: 4, label: 'Get img5', image: 'chart_5.png', shape: 'image'});
+
+            nodes.push({id: 5, label: 'Get img6', image: 'chart_6.png', shape: 'image'});
+
+            nodes.push({id: 6, label: 'Get img7', image: 'chart_7.png', shape: 'image'});
 
             //nodes.push({id: 1, label: 'Get HTML', image: url, shape: 'image'});
             //nodes.push({id: 2, label: 'Using SVG', image: url, shape: 'image'});
             edges.push({from: 1, to: 2, length: 300});
+            edges.push({from: 2, to: 4, length: 300});
+            edges.push({from: 3, to: 4, length: 300});
+             edges.push({from: 5, to: 2, length: 300});
+              edges.push({from: 6, to: 4, length: 300});
 
             // create a network
             var container = document.getElementById('mynetwork');
