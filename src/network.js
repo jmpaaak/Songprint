@@ -7,6 +7,33 @@ var nodeSize = graphW/40;
 var LinkData = [];
 var ToneData = [];
 
+var zoom = d3.behavior.zoom()
+    .scaleExtent([1, 10])
+    .on("zoom", zoomed);
+
+var drag = d3.behavior.drag()
+    .origin(function(d) { return d; })
+    .on("dragstart", dragstarted)
+    .on("drag", dragged)
+    .on("dragend", dragended);
+
+function zoomed() {
+    svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+
+function dragstarted(d) {
+    d3.event.sourceEvent.stopPropagation();
+    d3.select(this).classed("dragging", true);
+}
+
+function dragged(d) {
+    d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+}
+
+function dragended(d) {
+    d3.select(this).classed("dragging", false);
+}
+
 var svg = d3.select("#container")
     .attr("align","center")
     .style("padding-top", paddingY+"px")
@@ -14,8 +41,10 @@ var svg = d3.select("#container")
     .style("padding-right", paddingX+"px")
     .style("padding-left", paddingX+"px")
     .append("svg")
+    .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoomed))
     .attr("width", graphW)
-    .attr("height", graphH);
+    .attr("height", graphH)
+    .append("g")
 
 var force = d3.layout.force()
     .gravity(.07)
@@ -45,7 +74,11 @@ d3.json("ToneData.json", function (json) {
         force.links(LinkData);
         force.start();
 
-        var link = svg.selectAll(".link")
+        var links = svg.append("g")
+            .attr("class", "links")
+            //.attr("transform", "translate(-" + nodeSize/2 + ", -" + nodeSize/2 + ")");
+
+        var link = links.selectAll(".link")
             .data(LinkData)
             .enter().append("line")
             .attr("class", "link")
@@ -55,7 +88,8 @@ d3.json("ToneData.json", function (json) {
 
         var nodes = svg.append("g")
             .attr("class", "nodes")
-            .attr("transform", "translate(-" + nodeSize/2 + ", -" + nodeSize/2 + ")");
+            .attr("transform", "translate(-" + nodeSize/2 + ", -" + nodeSize/2 + ")")
+            .call(drag);
 
         var node = nodes.selectAll(".node")
             .data(ToneData)
@@ -68,6 +102,7 @@ d3.json("ToneData.json", function (json) {
             .each(function() {
                 d3.select(this).call(drawRadarChart);
             });
+
 
         node.append("text")
             .attr("dx", 0)
