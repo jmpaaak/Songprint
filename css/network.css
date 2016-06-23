@@ -3,8 +3,9 @@
 }
 
 .node text {
-    font:10px sans-serif;
+    font:8px sans-serif;
     font-weight: bold;
+    color: #fff;
 }
 
 .svg-container {
@@ -28,6 +29,7 @@ body {
     margin: 0;
     font-size: 14px;
     font-family: "Helvetica Neue", Helvetica;
+   background-color: #4d4d4d;
 }
 #chart {
     position: absolute;
