@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 html {
   height:100%;
 }
@@ -44,16 +44,25 @@ body {
 }
 
 #container {
-padding: 0 !important;
-height: 100%;
-width: 100%;
+
+padding: 0 !important;
+
+height: 100%;
+
+width: 100%;
 }
 
 svg {
-background-color: aliceblue;
-width: 76%;
-margin-top: 20px;
-height: 95%;
-margin-bottom: 20px;
-display: inline-block;
+
+background-color: aliceblue;
+
+width: 76%;
+
+margin-top: 20px;
+
+height: 95%;
+
+margin-bottom: 20px;
+
+display: inline-block;
 }
