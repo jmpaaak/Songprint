@@ -3,7 +3,7 @@ var w = window.innerWidth || document.body.clientWidth,
 var paddingX = 80, paddingY = 10;
 var graphW = w-paddingX * 2;
 var graphH = h-paddingY * 2;
-var nodeSize = graphW/40;
+var nodeSize = graphW/50;
 var LinkData = [];
 var ToneData = [];
 
@@ -47,9 +47,16 @@ var svg = d3.select("#container")
     .append("g")
 
 var force = d3.layout.force()
-    .gravity(.07)
-    .distance(30)
-    .charge(-70)
+    // .gravity(.07)
+    // .distance(30)
+    // .charge(-100)
+    .linkStrength(0.05)
+    .friction(0.9)
+    .linkDistance(50)
+    .charge(-40)
+    .gravity(0.1)
+    .theta(0.8)
+    .alpha(0.1)
     .size([graphW, graphH]);
 
 //init data
@@ -101,15 +108,34 @@ d3.json("ToneData.json", function (json) {
             .call(force.drag)
             .each(function() {
                 d3.select(this).call(drawRadarChart);
-            });
-
-
-        node.append("text")
-            .attr("dx", 0)
-            .attr("dy", 4)
-            .text(function (d) {
-                var propArr = Object.getOwnPropertyNames(d);
-                return propArr[0];
+            })
+            .on('mouseover', function (d){
+                for(var i=0; i<LinkData.length; i++) {
+                    for (var prop in LinkData[i]) {
+                        var obj = LinkData[i];
+                        if(prop == "source" && obj[prop].index == d.index) {
+                            d3.select("#d"+obj["target"].index)
+                                .style("fill-opacity", 1)
+                                .append("text")
+                                .attr("dx", 0)
+                                .attr("dy", 4)
+                                .text(function (d) {
+                                    var propArr = Object.getOwnPropertyNames(d);
+                                    return propArr[0];
+                                });
+                        }
+                    }
+                }
+                d3.select(this).append("text")
+                    .attr("dx", 0)
+                    .attr("dy", 4)
+                    .text(function (d) {
+                        var propArr = Object.getOwnPropertyNames(d);
+                        return propArr[0];
+                    });
+            })
+            .on('mouseout', function(){
+                d3.selectAll("text").remove();
             });
 
         force.on("tick", function () {

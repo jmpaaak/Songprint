@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ec68c04-d35d-4c38-a464-f5ce1bebc827" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/network.css" afterPath="$PROJECT_DIR$/css/network.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graphFile.json" afterPath="$PROJECT_DIR$/graphFile.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/RadarChart.js" afterPath="$PROJECT_DIR$/lib/RadarChart.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/network.js" afterPath="$PROJECT_DIR$/src/network.js" />
     </list>
     <ignored path="songprint.iws" />
@@ -35,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="network.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="network.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/network.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="940">
-              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+            <state relative-caret-position="249">
+              <caret line="118" column="47" selection-start-line="118" selection-start-column="47" selection-end-line="118" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -48,18 +52,18 @@
       <file leaf-file-name="graphFile.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/graphFile.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="8" column="41" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
+            <state relative-caret-position="2360">
+              <caret line="118" column="7" selection-start-line="118" selection-start-column="7" selection-end-line="118" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RadarChart.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RadarChart.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/RadarChart.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="59" column="32" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="32" />
+            <state relative-caret-position="420">
+              <caret line="151" column="50" selection-start-line="150" selection-start-column="24" selection-end-line="151" selection-end-column="50" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -70,8 +74,8 @@
       <file leaf-file-name="network.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/css/network.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+            <state relative-caret-position="140">
+              <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -99,8 +103,8 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/ToneData.json" />
         <option value="$PROJECT_DIR$/graphFile.json" />
-        <option value="$PROJECT_DIR$/css/network.css" />
         <option value="$PROJECT_DIR$/lib/RadarChart.js" />
+        <option value="$PROJECT_DIR$/css/network.css" />
         <option value="$PROJECT_DIR$/src/network.js" />
       </list>
     </option>
@@ -112,10 +116,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-7" />
     <option name="width" value="1378" />
-    <option name="height" value="780" />
+    <option name="height" value="775" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -299,18 +302,18 @@
       <workItem from="1466598877751" duration="9398000" />
       <workItem from="1466616056119" duration="4254000" />
       <workItem from="1466620637741" duration="122000" />
-      <workItem from="1466621039376" duration="11130000" />
+      <workItem from="1466621039376" duration="17259000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44670000" />
+    <option name="totallyTimeSpent" value="50799000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1378" height="780" extended-state="1" />
+    <frame x="-7" y="0" width="1378" height="775" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16703953" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14839672" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -558,14 +561,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/radar.json" />
     <entry file="file://$PROJECT_DIR$/cvs-to-json/.idea/modules.xml" />
-    <entry file="file://$PROJECT_DIR$/css/network.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ToneData.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
@@ -582,24 +577,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graphFile.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="41" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/RadarChart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="59" column="32" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="32" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
@@ -610,11 +587,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/graphFile.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2360">
+          <caret line="118" column="7" selection-start-line="118" selection-start-column="7" selection-end-line="118" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/network.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/network.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="940">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        <state relative-caret-position="249">
+          <caret line="118" column="47" selection-start-line="118" selection-start-column="47" selection-end-line="118" selection-end-column="47" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/RadarChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="151" column="50" selection-start-line="150" selection-start-column="24" selection-end-line="151" selection-end-column="50" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
