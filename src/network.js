@@ -7,11 +7,11 @@ var nodeSize = graphW/50;
 var LinkData = [];
 var ToneData = [];
 
-var zoom = d3.behavior.zoom()
+var zoom = d3.behavior.zoom() // 줌 기능 추가
     .scaleExtent([1, 10])
     .on("zoom", zoomed);
 
-var drag = d3.behavior.drag()
+var drag = d3.behavior.drag() // 드래그 기능 추가
     .origin(function(d) { return d; })
     .on("dragstart", dragstarted)
     .on("drag", dragged)
@@ -48,8 +48,7 @@ var svg = d3.select("#container")
 
 var force = d3.layout.force()
     // .gravity(.07)
-    // .distance(30)
-    // .charge(-100)
+    // .distance(300)
     .linkStrength(0.05)
     .friction(0.9)
     .linkDistance(50)
@@ -59,30 +58,30 @@ var force = d3.layout.force()
     .alpha(0.1)
     .size([graphW, graphH]);
 
-//init data
+//init data - 스터디 시작 포인트
 d3.json("ToneData.json", function (json) {
     ToneData = json;
     force.nodes(ToneData);
 
-    //parsing data Sting to Float
+    // 'parsing' data Sting to Float
     ToneData = ToneData.map(function(elem) {
         var attr_arr = Object.getOwnPropertyNames(elem);
         var song_name = attr_arr[0];
-        for(var i=0; i<elem[song_name].length; i++) {
-            var d_obj = elem[song_name][i];
-            d_obj["value"] = parseFloat(d_obj["value"]-7.5);
-            elem[song_name][i] = d_obj;
+        for(var i=0; i<elem[song_name].length; i++) { // elem[song_name] : 음들의 배열 - 각 음은 하나의 객체로 이루어짐
+            var tone_obj = elem[song_name][i]; // 각 음 객체를 변수에 할당
+            tone_obj["value"] = parseFloat(tone_obj["value"]-7.5); // 7.5는 노드 크기를 임의로 조절하기 위함
+            elem[song_name][i] = tone_obj;
         }
         return elem;
     });
 
-    d3.json("graphFile.json", function (json) {
+    d3.json("graphFile.json", function (json) { //d3.json의 파라미터로 들어가고 있던것 (GraphFile.json과 ToneData.jason)
         LinkData = json.links;
         force.links(LinkData);
         force.start();
 
         var links = svg.append("g")
-            .attr("class", "links")
+            .attr("class", "links") // html element에 class라는 이름의 속성 추가. 속성에 대한 값은 "links"
             //.attr("transform", "translate(-" + nodeSize/2 + ", -" + nodeSize/2 + ")");
 
         var link = links.selectAll(".link")
