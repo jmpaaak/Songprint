@@ -1,8 +1,8 @@
 var w = window.innerWidth || document.body.clientWidth,
     h = window.innerHeight || document.body.clientHeight;
 var paddingX = 80, paddingY = 10;
-var graphW = w-paddingX * 2;
-var graphH = h-paddingY * 2;
+var graphW = w * 0.76;
+var graphH = h * 0.96;
 var nodeSize = graphW/50;
 var LinkData = [];
 var ToneData = [];
@@ -17,8 +17,8 @@ var drag = d3.behavior.drag() // 드래그 기능 추가
     .on("drag", dragged)
     .on("dragend", dragended);
 
-function zoomed() {
-    svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+function zoomed() { // zoom 이벤트 콜백
+    gElemBelowSVG.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 }
 
 function dragstarted(d) {
@@ -40,25 +40,38 @@ var svg = d3.select("#container")
     .style("padding-bottom", paddingY+"px")
     .style("padding-right", paddingX+"px")
     .style("padding-left", paddingX+"px")
+
     .append("svg")
-    .call(d3.behavior.zoom().scaleExtent([1, 30]).on("zoom", zoomed))
-    .attr("width", graphW)
-    .attr("height", graphH)
-    .append("g")
+    .call(d3.behavior.zoom().scaleExtent([1, 30]) // scaleExtent[최소줌, 최대줌]
+    .on("zoom", zoomed)); // 줌 이벤트 리스너 활성화
+
+
+var gElemBelowSVG = svg.append("g");
+
+// console.log(parseFloat(svg.style("width")));
+
 
 var force = d3.layout.force()
-    // .gravity(.07)
-    // .distance(300)
-    .linkStrength(0.05)
-    .friction(0.9)
-    .linkDistance(50)
-    .charge(-40)
-    .gravity(0.1)
-    .theta(0.8)
-    .alpha(0.1)
+    // .linkStrength(0.1)
+    // .linkDistance(50)
+    .linkStrength(function(link) { // 유사도에 따른 값 변경 //TODO
+      if(link.index == 0) {
+        return 1; // 유사도가 높을 때
+      };
+      // return Math.random();
+      return 0.1;  // 유사도가 낮을 때
+    })
+    // .friction(0.1)
+    .charge(-200 * graphH / 1080) // 해상도 대응
+    // .charge(function(node) {
+    //   if(node.index == 0 ||node.index == 2||node.index ==4||node.index ==5||node.index ==9) return -700;
+    //   else return -100;
+    // })
+    // .gravity(0.1)
     .size([graphW, graphH]);
 
-//init data - 스터디 시작 포인트
+
+//init data
 d3.json("ToneData.json", function (json) {
     ToneData = json;
     force.nodes(ToneData);
@@ -77,10 +90,14 @@ d3.json("ToneData.json", function (json) {
 
     d3.json("graphFile.json", function (json) { //d3.json의 파라미터로 들어가고 있던것 (GraphFile.json과 ToneData.jason)
         LinkData = json.links;
+        LinkData = LinkData.map(function(link) {
+          link.index = link.source;
+          return link;
+        })
         force.links(LinkData);
         force.start();
 
-        var links = svg.append("g")
+        var links = gElemBelowSVG.append("g")
             .attr("class", "links") // html element에 class라는 이름의 속성 추가. 속성에 대한 값은 "links"
             //.attr("transform", "translate(-" + nodeSize/2 + ", -" + nodeSize/2 + ")");
 
@@ -92,7 +109,7 @@ d3.json("ToneData.json", function (json) {
                 return Math.sqrt(d.weight);
             });
 
-        var nodes = svg.append("g")
+        var nodes = gElemBelowSVG.append("g")
             .attr("class", "nodes")
             .attr("transform", "translate(-" + nodeSize/2 + ", -" + nodeSize/2 + ")")
             .call(drag);
