@@ -2,7 +2,7 @@
 html {
   height:100%;
 }
-.link { //
+.link {
     stroke: #3366cc;
     stroke-opacity: .5;
     stroke-width: .5 !important;
