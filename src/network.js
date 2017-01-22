@@ -121,6 +121,12 @@ d3.json("toneData-test.json", function (json) {
             .attr("id", function(d) {
                 return "d"+d.index
             })
+            .attr("genre", function(d){         //genre attr 추가
+                return d.genre;
+            })
+            .attr("year", function(d){          //year attr 추가
+                return d.year;
+            })
             .call(force.drag)
             .each(function() {
                 d3.select(this).call(drawRadarChart);
@@ -199,7 +205,11 @@ function drawRadarChart() {
     var id = id_str_split.join('');
     var attr_arr = Object.getOwnPropertyNames(ToneData[id]);
     var song_name = attr_arr[0];
-    RadarChart.draw("#d"+id, new Array(ToneData[id][song_name]), mycfg);
+
+    var genreParam = ToneData[id].genre;
+    var yearparam = ToneData[id].year;
+
+    RadarChart.draw("#d"+id, new Array(ToneData[id][song_name]), mycfg, genreParam);
 }
 
 ////////////////////////////////////////////
