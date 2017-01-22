@@ -52,22 +52,26 @@ var gElemBelowSVG = svg.append("g");
 
 
 var force = d3.layout.force()
-    // .linkStrength(0.1)
-    // .linkDistance(50)
+    // .linkStrength(0)
+    // .distance(100)
     .linkStrength(function(link) { // 유사도에 따른 값 변경 //TODO
-      if(link.index == 0) {
-        return 1; // 유사도가 높을 때
-      };
-      // return Math.random();
-      return 0.1;  // 유사도가 낮을 때
+      // if(link.index == 0) {
+      //   return 1; // 유사도가 높을 때
+      // };
+      // // return Math.random();
+      // return 0.1;  // 유사도가 낮을 때
+      return link.weight/20;
     })
-    // .friction(0.1)
-    .charge(-200 * graphH / 1080) // 해상도 대응
+    // .friction(0.)
+    // .charge(-100)
+    .charge(function(node) {
+      return -200 * graphH / 1080; // 해상도 대응
+    })
     // .charge(function(node) {
     //   if(node.index == 0 ||node.index == 2||node.index ==4||node.index ==5||node.index ==9) return -700;
     //   else return -100;
     // })
-    // .gravity(0.1)
+    .gravity(0.1)
     .size([graphW, graphH]);
 
 
@@ -88,7 +92,7 @@ d3.json("toneData-test.json", function (json) {
         return elem;
     });
 
-    d3.json("graphFile.json", function (json) { //d3.json의 파라미터로 들어가고 있던것 (GraphFile.json과 ToneData.jason)
+    d3.json("lib/cvs-to-json/graph-test.json", function (json) { //d3.json의 파라미터로 들어가고 있던것 (GraphFile.json과 ToneData.jason)
         LinkData = json.links;
         LinkData = LinkData.map(function(link) {
           link.index = link.source;
