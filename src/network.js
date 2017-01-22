@@ -72,7 +72,7 @@ var force = d3.layout.force()
 
 
 //init data
-d3.json("ToneData.json", function (json) {
+d3.json("toneData-test.json", function (json) {
     ToneData = json;
     force.nodes(ToneData);
 
@@ -82,7 +82,7 @@ d3.json("ToneData.json", function (json) {
         var song_name = attr_arr[0];
         for(var i=0; i<elem[song_name].length; i++) { // elem[song_name] : 음들의 배열 - 각 음은 하나의 객체로 이루어짐
             var tone_obj = elem[song_name][i]; // 각 음 객체를 변수에 할당
-            tone_obj["value"] = parseFloat(tone_obj["value"]-7.5); // 7.5는 노드 크기를 임의로 조절하기 위함
+            tone_obj["value"] = parseFloat(tone_obj["value"])*2.5+27.5; // 노드 크기를 임의로 조절하기 위함
             elem[song_name][i] = tone_obj;
         }
         return elem;
@@ -180,7 +180,7 @@ d3.json("ToneData.json", function (json) {
 var mycfg = {
     w: nodeSize,
     h: nodeSize,
-    maxValue: 36.5-7.5,
+    // maxValue: 1,
     levels: 0,
     radius: 1,
     factor: 1,
