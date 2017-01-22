@@ -52,27 +52,31 @@ var gElemBelowSVG = svg.append("g");
 
 
 var force = d3.layout.force()
-    // .linkStrength(0)
-    // .distance(100)
+    // .linkStrength(0.1)
     .linkStrength(function(link) { // 유사도에 따른 값 변경 //TODO
       // if(link.index == 0) {
       //   return 1; // 유사도가 높을 때
       // };
       // // return Math.random();
       // return 0.1;  // 유사도가 낮을 때
-      return link.weight/20;
+      console.log(link.source);
+      console.log(link.target);
+
+      console.log(link.weight);
+      return link.weight/2000;
     })
-    // .friction(0.)
-    // .charge(-100)
-    .charge(function(node) {
-      return -200 * graphH / 1080; // 해상도 대응
-    })
+    // .friction(0)
+    .charge(-100)
+    // .charge(function(node) {
+    //   return -1000 * graphH / 1080; // 해상도 대응
+    // })
     // .charge(function(node) {
     //   if(node.index == 0 ||node.index == 2||node.index ==4||node.index ==5||node.index ==9) return -700;
     //   else return -100;
     // })
-    .gravity(0.1)
-    .size([graphW, graphH]);
+    // .gravity(0)
+    .size([graphW, graphH])
+    // .theta(0);
 
 
 //init data
@@ -110,7 +114,10 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) {
             .enter().append("line")
             .attr("class", "link")
             .style("stroke-width", function (d) {
-                return Math.sqrt(d.weight);
+                return 3000/d.weight;
+            })
+            .style("stroke-opacity", function (d) {
+                return 2000/d.weight;
             });
 
         var nodes = gElemBelowSVG.append("g")
