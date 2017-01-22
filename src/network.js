@@ -76,7 +76,7 @@ var force = d3.layout.force()
 
 
 //init data
-d3.json("toneData-test.json", function (json) {
+d3.json("lib/cvs-to-json/toneData-test.json", function (json) {
     ToneData = json;
     force.nodes(ToneData);
 
