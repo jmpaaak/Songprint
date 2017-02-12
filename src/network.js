@@ -63,7 +63,7 @@ var force = d3.layout.force()
       console.log(link.target);
 
       console.log(link.weight);
-      return link.weight/2000;
+      return 5000/link.weight;
     })
     // .friction(0)
     .charge(-100)
@@ -90,7 +90,7 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) {
         var song_name = attr_arr[0];
         for(var i=0; i<elem[song_name].length; i++) { // elem[song_name] : 음들의 배열 - 각 음은 하나의 객체로 이루어짐
             var tone_obj = elem[song_name][i]; // 각 음 객체를 변수에 할당
-            tone_obj["value"] = parseFloat(tone_obj["value"])*2.5+27.5; // 노드 크기를 임의로 조절하기 위함
+            tone_obj["value"] = parseFloat(tone_obj["value"])*2+15; // 노드 크기를 임의로 조절하기 위함
             elem[song_name][i] = tone_obj;
         }
         return elem;
@@ -114,10 +114,21 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) {
             .enter().append("line")
             .attr("class", "link")
             .style("stroke-width", function (d) {
-                return 3000/d.weight;
+                console.log(d);
+                return 2500/d.weight;
             })
             .style("stroke-opacity", function (d) {
-                return 2000/d.weight;
+                return 0.5;
+            })
+            .style("stroke", function(d) {
+                var nodeIndex = d.index;
+                var param = ToneData[nodeIndex].genre;
+                if (param == "R&B") return d3.rgb('#F2B822');
+                if (param == "발라드") return d3.rgb('#EF5D80');
+                if (param == "포크") return d3.rgb('#90BF61');
+                if (param == "댄스") return d3.rgb('#999999');
+                if (param == "락") return d3.rgb('#31BEC2');
+                if (param == "힙합") return d3.rgb('#ffea1c');
             });
 
         var nodes = gElemBelowSVG.append("g")
