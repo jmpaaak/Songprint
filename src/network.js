@@ -50,34 +50,35 @@ var svg = d3.select("#container")
     .style("padding-right", paddingX+"px")
     .style("padding-left", paddingX+"px")
     .append("svg")
-    .call(d3.behavior.zoom().scaleExtent([1, 30]) // scaleExtent[최소줌, 최대줌]
-<<<<<<< HEAD
-    .on("zoom", zoomed)); // 줌 이벤트 리스너 활성화
+    // scaleExtent[최소줌, 최대줌]
+    .call( d3.behavior.zoom().scaleExtent([1, 30]).on("zoom", zoomed) ); // 줌 이벤트 리스너 활성화
 
-=======
-    .on("zoom", zoomed)); // 줌 이벤트 리스너 설정
+
+
+var arrow = svg.append("svg:defs").selectAll("marker")
+    .data(["end"])      // Different link/path types can be defined here
+    .enter().append("svg:marker")    // This section adds in the arrows
+    .attr("id", String)
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 15)
+    .attr("refY", 0.5)
+    .attr("markerWidth", 2)
+    .attr("markerHeight", 2)
+    .attr("orient", "auto")
+    .append("svg:path")
+    .attr("d", "M0,-5L10,0L0,5")
+    .attr('fill', '#192');
+
+
+
+
+
 
 // svg 바로 아래 g객체. 캔버스 역할
->>>>>>> c81d91db558719a34b16582971c564fbe1f5785b
 var gElemBelowSVG = svg.append("g");
 
 // force 객체 선언. 네트워크 구성 시 필요한 설정 값 세팅
 var force = d3.layout.force()
-<<<<<<< HEAD
-    // .linkStrength(0.1)
-    .linkStrength(function(link) { // 유사도에 따른 값 변경 //TODO
-      // if(link.index == 0) {
-      //   return 1; // 유사도가 높을 때
-      // };
-      // // return Math.random();
-      // return 0.1;  // 유사도가 낮을 때
-      return 5000/link.weight;
-    })
-    // .friction(0)
-    .charge(-100)
-    // .charge(function(node) {
-    //   return -1000 * graphH / 1080; // 해상도 대응
-=======
     // .linkDistance(function(link) { // 유사도에 따른 값 변경 TODO
     //   // if(link.index == 0) {
     //   //   return 1; // 유사도가 높을 때
@@ -85,7 +86,6 @@ var force = d3.layout.force()
     //   // // return Math.random();
     //   // return 0.1;  // 유사도가 낮을 때
     //   return 200000/link.weight;
->>>>>>> c81d91db558719a34b16582971c564fbe1f5785b
     // })
     // .linkStrength(function(link) { // 유사도에 따른 값 변경 TODO
     //   // if(link.index == 0) {
@@ -155,10 +155,6 @@ function EdgeColorDecideFunc(srcNode, dstNode) {
 }
 /******************* End of 'Edge Color Decide Area' ********************/
 
-<<<<<<< HEAD
-//init data
-d3.json("lib/cvs-to-json/toneData-test20170214.json", function (json) {
-=======
 // Options for the Radar chart, other than default
 var mycfg = {
     w: nodeSize,
@@ -176,8 +172,7 @@ var mycfg = {
 };
 
 // JSON 데이터 및 네트워크 초기화
-d3.json("lib/cvs-to-json/toneData-test.json", function (json) { // node JSON 데이터 로드 콜백
->>>>>>> c81d91db558719a34b16582971c564fbe1f5785b
+d3.json("lib/cvs-to-json/toneData-test20170214.json", function (json) { // node JSON 데이터 로드 콜백
     ToneData = json;
     force.nodes(ToneData); // node 데이터 세팅
 
@@ -193,11 +188,7 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) { // node JSON 데
         return elem;
     });
 
-<<<<<<< HEAD
-    d3.json("lib/cvs-to-json/graph-test20170214.json", function (json) { //d3.json의 파라미터로 들어가고 있던것 (GraphFile.json과 ToneData.jason)
-=======
-    d3.json("lib/cvs-to-json/graph-test.json", function (json) { // link JSON 데이터 로드 콜백
->>>>>>> c81d91db558719a34b16582971c564fbe1f5785b
+    d3.json("lib/cvs-to-json/graph-test20170214.json", function (json) { // link JSON 데이터 로드 콜백
         LinkData = json.links;
         force.links(LinkData); // link 데이터 세팅
 
@@ -210,43 +201,28 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) { // node JSON 데
 
         // 모든 에지를 포함하는 객체
         var links = gElemBelowSVG.append("g")
-            .attr("class", "links") // links class 추가
+            .attr("class", "links"); // links class 추가
 
         // 에지 객체
-        var link = links.selectAll(".link")
-            .data(LinkData)
-            .enter().append("line")
+        var link = links.selectAll("path")
+            .data(force.links())
+            .enter().append("path")
             .attr("class", "link")
             .style("stroke-width", function (d) {
-<<<<<<< HEAD
-                return 2500/d.weight;
-=======
                 // console.log(d);
                 return 9000/d.weight;
->>>>>>> c81d91db558719a34b16582971c564fbe1f5785b
             })
             .style("stroke-opacity", function (d) {
-                return 0.13;
+                return 0.2;
             })
             .style("stroke", function(d) {
-<<<<<<< HEAD
                 var srcNode = LinkData[countIndexForLinkData].source;
                 var dstNode = LinkData[countIndexForLinkData].target;
                 countIndexForLinkData++;
 
                 return EdgeColorDecideFunc(srcNode, dstNode);
-            });
-=======
-                var nodeIndex = d.index;
-                var param = ToneData[nodeIndex].genre;
-                if (param == "R&B") return d3.rgb('#F2B822');
-                if (param == "발라드") return d3.rgb('#EF5D80');
-                if (param == "포크") return d3.rgb('#90BF61');
-                if (param == "댄스") return d3.rgb('#999999');
-                if (param == "락") return d3.rgb('#31BEC2');
-                if (param == "힙합") return d3.rgb('#ffea1c');
-            }); // 에지 객체 선언문 종료
->>>>>>> c81d91db558719a34b16582971c564fbe1f5785b
+            })
+            //.attr("marker-end", "url(#end)");
 
         // 모든 노드를 포함하는 객체
         var nodes = gElemBelowSVG.append("g")
@@ -262,7 +238,6 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) { // node JSON 데
             .attr("id", function(d) { // id attr 추가
                 return "d"+d.index;
             })
-<<<<<<< HEAD
             .attr("artistKOR", function(d){     //artistKOR attr 추가
                 return d.artistKOR;
             })
@@ -273,9 +248,6 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) { // node JSON 데
                 return d.songNameENG;
             })
             .attr("genre", function(d){         //genre attr 추가
-=======
-            .attr("genre", function(d){  // genre attr 추가
->>>>>>> c81d91db558719a34b16582971c564fbe1f5785b
                 return d.genre;
             })
             .attr("year", function(d){  // year attr 추가
@@ -285,15 +257,8 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) { // node JSON 데
             .each(function() {
                 d3.select(this).call(drawRadarChart);
             })
-<<<<<<< HEAD
             .on('mouseover', function (d){
-                /*
-=======
-
-            // mouseover 콜백 설정
-            .on('mouseover', function (d) {
->>>>>>> c81d91db558719a34b16582971c564fbe1f5785b
-                for(var i=0; i<LinkData.length; i++) {
+                /*for(var i=0; i<LinkData.length; i++) {
                     for (var prop in LinkData[i]) {
                         var obj = LinkData[i];
                         if(prop == "source" && obj[prop].index == d.index) {
@@ -309,20 +274,18 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) { // node JSON 데
                                 });
                         }
                     }
-                }
-                */
+                }*/
                 d3.select(this).append("text")
                     .attr("dx", 0)
                     .attr("dy", 4)
                     .text(function (d) {
                         var propArr = Object.getOwnPropertyNames(d);
                         return propArr[0];
-<<<<<<< HEAD
                     })
                     .style("fill", 'white');
             })
             .on('mouseout', function(){
-                d3.selectAll("text").remove();
+                // d3.selectAll("text").remove();
             })
             .on('mousedown', function(d, links){
                 var clickedNode = d;
@@ -336,27 +299,28 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) { // node JSON 데
 
                 //해당 엣지들의 불투명화 코드
             });
-=======
-                    });
-            }) // mouseover 콜백 설정 종료
-
-            // node 객체 선언문 종료
->>>>>>> c81d91db558719a34b16582971c564fbe1f5785b
 
         // 프레임 당 콜백 설정
         force.on("tick", function () {
-            link.attr("x1", function (d) {
-                    return d.source.x;
-                })
-                .attr("y1", function (d) {
-                    return d.source.y;
-                })
-                .attr("x2", function (d) {
-                    return d.target.x;
-                })
-                .attr("y2", function (d) {
-                    return d.target.y;
-                });
+            link.attr("d", function (d) {
+                    // var dx = d.target.x - d.source.x,
+                    //     dy = d.target.y - d.source.y,
+                    //     dr = Math.sqrt(dx * dx + dy * dy);
+                    return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
+                }
+            );
+            // link.attr("x1", function (d) {
+            //         return d.source.x;
+            //     })
+            //     .attr("y1", function (d) {
+            //         return d.source.y;
+            //     })
+            //     .attr("x2", function (d) {
+            //         return d.target.x;
+            //     })
+            //     .attr("y2", function (d) {
+            //         return d.target.y;
+            //     });
 
             node.attr("transform", function (d) {
                 return "translate(" + d.x + "," + d.y + ")";
