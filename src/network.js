@@ -6,6 +6,23 @@ var graphH = h * 0.96;
 var nodeSize = graphW/50;
 var LinkData = [];
 var ToneData = [];
+var countIndexForLinkData = 0; //엣지 배열에 접근하는데, 중복되어 생성되지 않은 엣지의 인덱스가 LinkData에서 중간에 채워지므로 간극 메꾸기 위해
+var nodeColor = [
+    d3.rgb('#33fff9'),  //0 R&B
+    d3.rgb('#c4ff0b'),  //1 발라드
+    d3.rgb('#a0a0a0'),  //2 포크
+    d3.rgb('#0b63ff'),  //3 댄스
+    d3.rgb('#f77908'),  //4 락
+    d3.rgb('#fc00fc')   //5 힙합
+];
+var rimColor = [
+    d3.rgb('#93fffc'),  //0 R&B
+    d3.rgb('#e6ff96'),  //1 발라드
+    d3.rgb('#e3e1e1'),  //2 포크
+    d3.rgb('#8cb5ff'),  //3 댄스
+    d3.rgb('#ffac62'),  //4 락
+    d3.rgb('#ff61ff')   //5 힙합
+];
 
 var zoom = d3.behavior.zoom() // 줌 기능 추가
     .scaleExtent([1, 10])
@@ -45,7 +62,6 @@ var svg = d3.select("#container")
     .call(d3.behavior.zoom().scaleExtent([1, 30]) // scaleExtent[최소줌, 최대줌]
     .on("zoom", zoomed)); // 줌 이벤트 리스너 활성화
 
-
 var gElemBelowSVG = svg.append("g");
 
 // console.log(parseFloat(svg.style("width")));
@@ -59,10 +75,6 @@ var force = d3.layout.force()
       // };
       // // return Math.random();
       // return 0.1;  // 유사도가 낮을 때
-      console.log(link.source);
-      console.log(link.target);
-
-      console.log(link.weight);
       return 5000/link.weight;
     })
     // .friction(0)
@@ -78,9 +90,54 @@ var force = d3.layout.force()
     .size([graphW, graphH])
     // .theta(0);
 
+/********************** Edge Color Decide Area ***********************/
+function CompareAndResult(genre) {
+    if (genre == "R&B") return nodeColor[0];
+    if (genre == "발라드") return nodeColor[1];
+    if (genre == "포크") return nodeColor[2];
+    if (genre == "댄스") return nodeColor[3];
+    if (genre == "락") return nodeColor[4];
+    if (genre == "힙합") return nodeColor[5];
+}
+function EdgeColorDecideFunc(srcNode, dstNode) {
+    var yearSrc = parseInt(srcNode.year.substring(0, 4));
+    var monthSrc = parseInt(srcNode.year.substring(4, 6));
+    var daySrc = parseInt(srcNode.year.substring(6, 8));
+
+    var yearDst = parseInt(dstNode.year.substring(0, 4));
+    var monthDst = parseInt(dstNode.year.substring(4, 6));
+    var dayDst = parseInt(dstNode.year.substring(6, 8));
+
+    if (yearSrc > yearDst){
+        return CompareAndResult(dstNode.genre);
+    }
+    else if (yearSrc == yearDst){
+        if (monthSrc > monthDst){
+            return CompareAndResult(dstNode.genre);
+        }
+        else if ( monthSrc == monthDst){
+            if (daySrc > dayDst){
+                return CompareAndResult(dstNode.genre);
+            }
+            else if (daySrc == dayDst){
+                return CompareAndResult(srcNode.genre);
+            }
+            else if (daySrc < dayDst){
+                return CompareAndResult(srcNode.genre);
+            }
+        }
+        else if (monthSrc < monthDst){
+            return CompareAndResult(srcNode.genre);
+        }
+    }
+    else if (yearSrc < yearDst){
+        return CompareAndResult(srcNode.genre);
+    }
+}
+/******************* End of 'Edge Color Decide Area' ********************/
 
 //init data
-d3.json("lib/cvs-to-json/toneData-test.json", function (json) {
+d3.json("lib/cvs-to-json/toneData-test20170214.json", function (json) {
     ToneData = json;
     force.nodes(ToneData);
 
@@ -90,13 +147,13 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) {
         var song_name = attr_arr[0];
         for(var i=0; i<elem[song_name].length; i++) { // elem[song_name] : 음들의 배열 - 각 음은 하나의 객체로 이루어짐
             var tone_obj = elem[song_name][i]; // 각 음 객체를 변수에 할당
-            tone_obj["value"] = parseFloat(tone_obj["value"])*2+15; // 노드 크기를 임의로 조절하기 위함
+            tone_obj["value"] = parseFloat(tone_obj["value"])*1.5+15; // 노드 크기를 임의로 조절하기 위함
             elem[song_name][i] = tone_obj;
         }
         return elem;
     });
 
-    d3.json("lib/cvs-to-json/graph-test.json", function (json) { //d3.json의 파라미터로 들어가고 있던것 (GraphFile.json과 ToneData.jason)
+    d3.json("lib/cvs-to-json/graph-test20170214.json", function (json) { //d3.json의 파라미터로 들어가고 있던것 (GraphFile.json과 ToneData.jason)
         LinkData = json.links;
         LinkData = LinkData.map(function(link) {
           link.index = link.source;
@@ -114,21 +171,17 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) {
             .enter().append("line")
             .attr("class", "link")
             .style("stroke-width", function (d) {
-                console.log(d);
                 return 2500/d.weight;
             })
             .style("stroke-opacity", function (d) {
                 return 0.5;
             })
             .style("stroke", function(d) {
-                var nodeIndex = d.index;
-                var param = ToneData[nodeIndex].genre;
-                if (param == "R&B") return d3.rgb('#F2B822');
-                if (param == "발라드") return d3.rgb('#EF5D80');
-                if (param == "포크") return d3.rgb('#90BF61');
-                if (param == "댄스") return d3.rgb('#999999');
-                if (param == "락") return d3.rgb('#31BEC2');
-                if (param == "힙합") return d3.rgb('#ffea1c');
+                var srcNode = LinkData[countIndexForLinkData].source;
+                var dstNode = LinkData[countIndexForLinkData].target;
+                countIndexForLinkData++;
+
+                return EdgeColorDecideFunc(srcNode, dstNode);
             });
 
         var nodes = gElemBelowSVG.append("g")
@@ -143,6 +196,15 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) {
             .attr("id", function(d) {
                 return "d"+d.index
             })
+            .attr("artistKOR", function(d){     //artistKOR attr 추가
+                return d.artistKOR;
+            })
+            .attr("artistENG", function(d){     //artistENG attr 추가
+                return d.artistENG;
+            })
+            .attr("songNameENG", function(d){   //sonNameENG attr 추가
+                return d.songNameENG;
+            })
             .attr("genre", function(d){         //genre attr 추가
                 return d.genre;
             })
@@ -154,12 +216,14 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) {
                 d3.select(this).call(drawRadarChart);
             })
             .on('mouseover', function (d){
+                /*
                 for(var i=0; i<LinkData.length; i++) {
                     for (var prop in LinkData[i]) {
                         var obj = LinkData[i];
                         if(prop == "source" && obj[prop].index == d.index) {
                             d3.select("#d"+obj["target"].index)
                                 .style("fill-opacity", 1)
+                                .style("fill", 'white')
                                 .append("text")
                                 .attr("dx", 0)
                                 .attr("dy", 4)
@@ -170,16 +234,30 @@ d3.json("lib/cvs-to-json/toneData-test.json", function (json) {
                         }
                     }
                 }
+                */
                 d3.select(this).append("text")
                     .attr("dx", 0)
                     .attr("dy", 4)
                     .text(function (d) {
                         var propArr = Object.getOwnPropertyNames(d);
                         return propArr[0];
-                    });
+                    })
+                    .style("fill", 'white');
             })
             .on('mouseout', function(){
                 d3.selectAll("text").remove();
+            })
+            .on('mousedown', function(d, links){
+                var clickedNode = d;
+
+                //기존의 화살표 제거 코드 (최초 아무 화살표 없는 상황 고려)
+
+                //기존의 불투명해진 엣지 투명도 0.5로 복구 코드 (최초 모두 투명한 상황 고려)
+
+                //새로운 화살표(자신보다 최신의 노래와 연결된 노드 방향) 그리기 코드
+
+
+                //해당 엣지들의 불투명화 코드
             });
 
         force.on("tick", function () {
@@ -228,10 +306,22 @@ function drawRadarChart() {
     var attr_arr = Object.getOwnPropertyNames(ToneData[id]);
     var song_name = attr_arr[0];
 
+    var paramArray = [];
     var genreParam = ToneData[id].genre;
-    var yearparam = ToneData[id].year;
+    var yearParam = ToneData[id].year;
+    var artistKORParam = ToneData[id].artistKOR;
+    var artistENGParam = ToneData[id].artistENG;
+    var songNameENGParam = ToneData[id].songNameENG;
 
-    RadarChart.draw("#d"+id, new Array(ToneData[id][song_name]), mycfg, genreParam);
+    paramArray.push(genreParam); paramArray.push(yearParam); paramArray.push(artistKORParam); paramArray.push(artistENGParam); paramArray.push(songNameENGParam);
+    //ParamArray
+    // index 0: 장르
+    // index 1: 연도
+    // index 2: 아티스트 국문
+    // index 3: 아티스트 영문
+    // index 4: 노래제목 영문
+
+    RadarChart.draw("#d"+id, new Array(ToneData[id][song_name]), mycfg, paramArray);
 }
 
 ////////////////////////////////////////////
