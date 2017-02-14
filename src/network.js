@@ -70,8 +70,11 @@ svg.append("svg:defs").selectAll("marker")
     .attr("orient", "auto")
     .append("svg:path")
     .attr("d", "M0,-5L10,0L0,5")
-    .attr('fill-opacity', 0.1)
-    .attr('fill', 'blue');
+    .attr('fill-opacity', .5)
+    .attr('fill', function(d) {
+      return nodeColor[d];
+    });
+
 
 // svg 바로 아래 g객체. 캔버스 역할
 var gElemBelowSVG = svg.append("g");
