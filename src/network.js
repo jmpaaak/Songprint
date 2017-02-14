@@ -63,17 +63,15 @@ svg.append("svg:defs").selectAll("marker")
     .enter().append("svg:marker")    // This section adds in the arrows
     .attr("id", String)
     .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 15)
-    .attr("refY", 0.5)
-    .attr("markerWidth", 2)
-    .attr("markerHeight", 2)
+    .attr("refX", 2)
+    .attr("refY", 0)
+    .attr("markerWidth", 1.7)
+    .attr("markerHeight", 1.7)
     .attr("orient", "auto")
     .append("svg:path")
     .attr("d", "M0,-5L10,0L0,5")
-    .attr('fill', function(d) {
-      console.log(nodeColor[d]);
-      return nodeColor[d];
-    });
+    .attr('fill-opacity', 0.1)
+    .attr('fill', 'blue');
 
 // svg 바로 아래 g객체. 캔버스 역할
 var gElemBelowSVG = svg.append("g");
@@ -215,7 +213,7 @@ d3.json("lib/cvs-to-json/toneData-test20170214.json", function (json) { // node 
             .attr("class", "link")
             .style("stroke-width", function (d) {
                 // console.log(d);
-                return 9000/d.weight;
+                return 7000/d.weight-1;
             })
             .style("stroke-opacity", function (d) {
                 return 0.1;
@@ -293,6 +291,7 @@ d3.json("lib/cvs-to-json/toneData-test20170214.json", function (json) { // node 
                 d3.select(this).append("text")
                     .attr("dx", 0)
                     .attr("dy", 4)
+                    .attr("id", 'nodeName')
                     .text(function (d) {
                         var propArr = Object.getOwnPropertyNames(d);
                         return propArr[0];
@@ -300,11 +299,9 @@ d3.json("lib/cvs-to-json/toneData-test20170214.json", function (json) { // node 
                     .style("fill", 'white');
             })
             .on('mouseout', function(){
-                // d3.selectAll("text").remove();
+                d3.select("#nodeName").remove();
             })
-            .on('mousedown', function(d, links){
-                var clickedNode = d;
-
+            .on('mousedown', function(d){
                 //기존의 화살표 제거 코드 (최초 아무 화살표 없는 상황 고려)
 
                 //기존의 불투명해진 엣지 투명도 0.5로 복구 코드 (최초 모두 투명한 상황 고려)
@@ -314,13 +311,34 @@ d3.json("lib/cvs-to-json/toneData-test20170214.json", function (json) { // node 
                 //해당 엣지들의 불투명화 코드
             });
 
+        function calculateIngnition(edge) {
+            var dx = edge.target.x - edge.source.x,
+                dy = edge.target.y - edge.source.y;
+
+            var transToOriginX = edge.target.x - dx;
+            var transToOriginY = edge.target.y - dy;
+            var inclination = dy/dx;
+
+            var selectedDomain = transToOriginX-50;
+            var selectedY = selectedDomain*inclination;
+            selectedDomain += dx;
+            selectedY += dy;
+
+            var newPosition = [selectedDomain, selectedY];
+            return newPosition;
+        }
+
         // 프레임 당 콜백 설정
         force.on("tick", function () {
             link.attr("d", function (d) {
-                    // var dx = d.target.x - d.source.x,
-                    //     dy = d.target.y - d.source.y,
-                    //     dr = Math.sqrt(dx * dx + dy * dy);
-                    return "M" + d.source.x + "," + d.source.y + "L" + d.target.x + "," + d.target.y;
+                var dx = d.target.x - d.source.x,
+                    dy = d.target.y - d.source.y;
+                // dr = Math.sqrt(dx * dx + dy * dy);
+                // newTarget = calculateIngnition(d);
+                var newTargetX = d.target.x - dx*0.15;
+                var newTargetY = d.target.y - dy*0.15;
+
+                return "M" + d.source.x + "," + d.source.y + "L" + newTargetX + "," + newTargetY;
                 }
             );
             // link.attr("x1", function (d) {

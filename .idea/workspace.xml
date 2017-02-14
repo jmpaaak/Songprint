@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8ec68c04-d35d-4c38-a464-f5ce1bebc827" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/network.css" afterPath="$PROJECT_DIR$/css/network.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/RadarChart.js" afterPath="$PROJECT_DIR$/lib/RadarChart.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/network.js" afterPath="$PROJECT_DIR$/src/network.js" />
     </list>
     <ignored path="songprint.iws" />
@@ -88,8 +86,8 @@
       <file leaf-file-name="RadarChart.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/RadarChart.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="21" column="27" lean-forward="false" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
+            <state relative-caret-position="325">
+              <caret line="125" column="10" lean-forward="false" selection-start-line="125" selection-start-column="10" selection-end-line="125" selection-end-column="10" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -100,8 +98,8 @@
       <file leaf-file-name="network.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/network.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="608">
-              <caret line="224" column="14" lean-forward="false" selection-start-line="224" selection-start-column="14" selection-end-line="224" selection-end-column="14" />
+            <state relative-caret-position="509">
+              <caret line="69" column="29" lean-forward="false" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -139,7 +137,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cfg.color</find>
       <find>mouse</find>
       <find>.attr(&quot;x</find>
       <find>zoom</find>
@@ -169,6 +166,7 @@
       <find>attr</find>
       <find>attr(&quot;d</find>
       <find>attr(&quot;d&quot;</find>
+      <find>d.x</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -395,12 +393,12 @@
       <workItem from="1486874883538" duration="2070000" />
       <workItem from="1486985742384" duration="22043000" />
       <workItem from="1487041476279" duration="9096000" />
-      <workItem from="1487070342568" duration="19862000" />
+      <workItem from="1487070342568" duration="26262000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144698000" />
+    <option name="totallyTimeSpent" value="151098000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -804,16 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/RadarChart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="27" lean-forward="false" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/cvs-to-json/toneData-test20170214.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="642">
@@ -830,10 +818,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/RadarChart.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="125" column="10" lean-forward="false" selection-start-line="125" selection-start-column="10" selection-end-line="125" selection-end-column="10" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/network.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="224" column="14" lean-forward="false" selection-start-line="224" selection-start-column="14" selection-end-line="224" selection-end-column="14" />
+        <state relative-caret-position="509">
+          <caret line="69" column="29" lean-forward="false" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="29" />
           <folding />
         </state>
       </provider>
