@@ -70,7 +70,7 @@ svg.append("svg:defs").selectAll("marker")
     .attr("orient", "auto")
     .append("svg:path")
     .attr("d", "M0,-5L10,0L0,5")
-    .attr('fill-opacity', .5)
+    .attr('fill-opacity', .3)
     .attr('fill', function(d) {
       return nodeColor[d];
     });
@@ -305,13 +305,16 @@ d3.json("lib/cvs-to-json/toneData-test20170214.json", function (json) { // node 
                 d3.select("#nodeName").remove();
             })
             .on('mousedown', function(d){
-                //기존의 화살표 제거 코드 (최초 아무 화살표 없는 상황 고려)
-
-                //기존의 불투명해진 엣지 투명도 0.5로 복구 코드 (최초 모두 투명한 상황 고려)
-
-                //새로운 화살표(자신보다 최신의 노래와 연결된 노드 방향) 그리기 코드
-
-                //해당 엣지들의 불투명화 코드
+//TODO
+              d3.select(this).append("text")
+                  .attr("dx", 0)
+                  .attr("dy", 4)
+                  .attr("id", 'nodeName')
+                  .text(function (d) {
+                      var propArr = Object.getOwnPropertyNames(d);
+                      return propArr[0];
+                  })
+                  .style("fill", 'white');
             });
 
         function calculateIngnition(edge) {

@@ -61,12 +61,12 @@ function draw() {
   var th = typeDescSVG.style("height").replace("px", "");
   var tw = typeDescSVG.style("width").replace("px", "");
   var circleData = [
-    {cx: tw*0.1, cy: th*0.2, color: "gray"},
-    {cx: tw*0.4, cy: th*0.2, color: "gray"},
-    {cx: tw*0.7, cy: th*0.2, color: "gray"},
-    {cx: tw*0.1, cy: th*0.65, color: "gray"},
-    {cx: tw*0.4, cy: th*0.65, color: "gray"},
-    {cx: tw*0.7, cy: th*0.65, color: "gray"}
+    {cx: tw*0.1, cy: th*0.2, color: nodeColor["R&B"] },
+    {cx: tw*0.4, cy: th*0.2, color: nodeColor["Rock"] },
+    {cx: tw*0.7, cy: th*0.2, color: nodeColor["Ballad"] },
+    {cx: tw*0.1, cy: th*0.65, color: nodeColor["Hiphop"] },
+    {cx: tw*0.4, cy: th*0.65, color: nodeColor["Dance"] },
+    {cx: tw*0.7, cy: th*0.65, color: nodeColor["Folk"] }
   ];
 
   // song type 별 원형 그리기
