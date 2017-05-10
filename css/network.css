@@ -1,9 +1,83 @@
+@font-face {
+    font-family: "GILLUBCD";
+    src: url("../font/GILLUBCD.ttf") /* TTF file for CSS3 browsers */
+}
+@font-face {
+    font-family: "Roboto-Medium";
+    src: url("../font/Roboto-Medium.ttf") /* TTF file for CSS3 browsers */
+}
 
 html {
   height:100%;
+  font-family: "Roboto-Medium";
+  letter-spacing: .1vw;
 }
+
+#ui-container {
+  margin-left: 5%;
+  flex: 0.75;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#vis-title {font-family: "GILSANUB";text-align: left;margin-bottom: 0;font-size: 4.5vh;}
+
+#vis-description {font-size: 1vh;text-align: left;width: 150%;}
+
+#subtitle {font-size: 2.5vh;text-align: left;margin-bottom: 1.5vh;flex: 1;}
+
+#info-box {
+    border: 2px solid white;
+    padding: 1vw;
+}
+
+#info-box h3 {
+  margin: 0.2vh;
+  font-size: 2vh;
+  font-weight: normal;
+}
+
+#info-box #name-eng, #name-kor, #singer {
+  text-align: left;
+  margin-left: 6% !important;
+}
+#info-box #name-eng {
+    color: #dac76a;
+}
+#info-box #name-kor {}
+#info-box #singer {
+    margin: 2.5vh;
+    margin-bottom: 0;
+    color: #dad305;
+}
+#info-box #release-date {
+    text-align: right;
+    margin-right: 6%;
+}
+
+#remarks {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#remarks #link-desc {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#remarks #type-desc {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+}
+
 .link {
-    stroke: #3366cc;
+    stroke: #e0be7b;
     stroke-opacity: 1;
     stroke-width: .5;
 }
@@ -31,10 +105,9 @@ html {
 body {
     overflow: hidden;
     margin: 0;
-    background: antiquewhite;
-    font-size: 14px;
+    background: #000;
+    color: white;
     height: 100%;
-    font-family: "Helvetica Neue", Helvetica;
 }
 
 #chart {
@@ -44,25 +117,13 @@ body {
 }
 
 #container {
-
-padding: 0 !important;
-
-height: 100%;
-
-width: 100%;
+  display: flex;
+  height: 100%;
 }
 
 svg {
 
-background-color: aliceblue;
+flex: 2;
 
-width: 76%;
-
-margin-top: 20px;
-
-height: 95%;
-
-margin-bottom: 20px;
-
-display: inline-block;
+height: 100;
 }

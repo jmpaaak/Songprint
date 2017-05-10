@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Songprint</title>
@@ -8,21 +7,61 @@
     <!--lib-->
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
-    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script> -->
 
     <script src="lib/RadarChart.js"></script>
 
     <!--css-->
     <link rel="stylesheet" type="text/css" href="css/network.css">
-
-    <!--src-->
 </head>
 
 <body>
+
   <div id="container" style="margin: 0 auto">
-    <h1 style="display:inline-block; float: left; width: 19%;">&nbsp;Song-print</h1>
+
+    <div id="ui-container">
+
+      <!--section 1-->
+      <section style="flex: 0.6; width: 100%; display: inline-block;">
+        <h1 id="vis-title">SONG PRINT</h1>
+        <hr align="left" style="width: 40%; border-right-width: 0px; border-left-width: 0px;">
+        <div id="vis-description">
+          Epsilon Eridani is a star in the constellation of Eridanus.
+          Viewable from most of Earth's surface along a declination 9.46° south of the celestial equator,
+          it is 10.5 light-years away and has an apparent magnitude of 3.73. It is the third-closest individual star or
+          star system visible to the unaided eye. <!--레이아웃 유지 주의 -->
+        </div>
+      </section>
+
+      <!--section 2-->
+      <section style="flex: 1; width: 100%; display: inline-block;">
+        <h2 id="subtitle">Song Information</h1>
+        <div id="info-box">
+            <h3 id="name-eng">Cannot let you go</h3>
+            <h3 id="name-kor">죽어도 못보내</h3>
+            <h3 id="singer">2am</h3>
+            <h3 id="release-date">1993. 07. 10.</h3>
+            <iframe width="100%" height="100%" style="margin-top: 1vh;" src="https://www.youtube.com/embed/hOREkPq1aVQ?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+      </section>
+
+      <!--section 3-->
+      <section id="remarks">
+        <div id="link-desc">
+          <h2 id="subtitle" style="margin-bottom: 0;">Correlation <span style="font-size: 1vw"> - edge thickness</span></h1>
+        </div>
+        <div id="type-desc">
+          <h2 id="subtitle" style="margin-bottom: 0;">Song type <span style="font-size: 1vw"> - node color</span></h1>
+        </div>
+      </section>
+
+    </div>
+
   </div>
+
+  <!-- src -->
+  <script src="src/ui.js"></script>
   <script src="src/network.js"></script>
+
 </body>
 
 </html>
